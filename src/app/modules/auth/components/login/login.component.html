@@ -1,0 +1,24 @@
+<form>
+  <div class="form-input">
+    <mat-form-field appearance="fill">
+      <mat-label>Login</mat-label>
+      <input matInput />
+    </mat-form-field>
+  </div>
+
+  <div class="form-input">
+    <mat-form-field appearance="fill">
+      <mat-label>Haslo</mat-label>
+      <input type="password" matInput />
+    </mat-form-field>
+  </div>
+  <div class="d-flex justify-content-end">
+    <button mat-raised-button color="primary">Zaloguj sie</button>
+  </div>
+  <p class="text-center">
+    Zapomniales Hasła ? <a routerLink="/odzyskiwanie-hasla"> Odzyskaj hasło</a>
+  </p>
+  <p class="text-center">
+    Nie masz konta? <a routerLink="/rejestracja"> Zarejestruj sie</a>
+  </p>
+</form>
