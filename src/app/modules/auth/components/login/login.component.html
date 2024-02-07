@@ -1,19 +1,28 @@
-<form>
+<form [formGroup]="loginForm">
   <div class="form-input">
     <mat-form-field appearance="fill">
       <mat-label>Login</mat-label>
-      <input matInput />
+      <input matInput [formControl]="controls.login" />
+      <mat-error *ngIf="controls.login.invalid">{{
+        getErrorMessage(controls.login)
+      }}</mat-error>
     </mat-form-field>
   </div>
 
   <div class="form-input">
     <mat-form-field appearance="fill">
       <mat-label>Haslo</mat-label>
-      <input type="password" matInput />
+      <input type="password" matInput [formControl]="controls.password" />
+      <mat-error *ngIf="controls.password.invalid">{{
+        getErrorMessage(controls.password)
+      }}</mat-error>
     </mat-form-field>
   </div>
+
   <div class="d-flex justify-content-end">
-    <button mat-raised-button color="primary">Zaloguj sie</button>
+    <button mat-raised-button color="primary" [disabled]="loginForm.invalid">
+      Zaloguj sie
+    </button>
   </div>
   <p class="text-center">
     Zapomniales Hasła ? <a routerLink="/odzyskiwanie-hasla"> Odzyskaj hasło</a>
