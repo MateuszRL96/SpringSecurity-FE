@@ -1,4 +1,4 @@
-<form [formGroup]="registerForm">
+<form [formGroup]="registerForm" (ngSubmit)="onRegister()">
   <div class="form-input">
     <mat-form-field appearance="fill">
       <mat-label>Adres e-mail</mat-label>
@@ -8,7 +8,6 @@
       }}</mat-error>
     </mat-form-field>
   </div>
-
   <div class="form-input">
     <mat-form-field appearance="fill">
       <mat-label>Login</mat-label>
@@ -18,20 +17,18 @@
       }}</mat-error>
     </mat-form-field>
   </div>
-
   <div class="form-input">
     <mat-form-field appearance="fill">
-      <mat-label>Haslo</mat-label>
+      <mat-label>Hasło</mat-label>
       <input type="password" matInput [formControl]="controls.password" />
       <mat-error *ngIf="controls.password.invalid">{{
         getErrorMessage(controls.password)
       }}</mat-error>
     </mat-form-field>
   </div>
-
   <div class="form-input">
     <mat-form-field appearance="fill">
-      <mat-label>Powtorz Haslo</mat-label>
+      <mat-label>Powtórz hasło</mat-label>
       <input
         type="password"
         matInput
@@ -42,8 +39,23 @@
       }}</mat-error>
     </mat-form-field>
   </div>
-
   <div class="d-flex justify-content-end">
-    <button mat-raised-button color="primary">Zarejestruj sie</button>
+    <button mat-raised-button color="primary" [disabled]="registerForm.invalid">
+      Zarejestruj się
+    </button>
+  </div>
+  <div
+    class="alert alert-warning alert-dismissible fade show mt-2"
+    role="alert"
+    *ngIf="notMatchingPasswordsErr"
+  >
+    {{ notMatchingPasswordsErr }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+      (click)="notMatchingPasswordsErr = null"
+    ></button>
   </div>
 </form>
