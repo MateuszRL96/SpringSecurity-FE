@@ -18,8 +18,23 @@ export interface LoginData {
   password: string;
 }
 
+export interface ResetPasswordData {
+  email: string;
+}
+
+export interface ChangePasswordData {
+  password: string;
+  uid: string;
+}
+
 export interface RegisterData {
   email: string;
   login: string;
   password: string;
+}
+
+export interface AuthResponse {
+  timestamp: string;
+  message: string;
+  code: string;
 }
