@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { NgModule } from '@angular/core';
 import { HeaderComponent } from './components/header/header.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';

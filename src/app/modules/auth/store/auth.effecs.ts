@@ -28,8 +28,9 @@ export class AuthEffects {
       ofType(AuthActions.register),
       switchMap((action) => {
         return this.authService.register(action.registerData).pipe(
-          map((user) => {
+          map(() => {
             this.router.navigate(['/logowanie']);
+            console.log('to nie tu');
             this.notifierService.notify(
               'success',
               'Poprawnie utworzono konto użytkownika!',
