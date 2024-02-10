@@ -15,9 +15,10 @@ export class AuthEffects {
       switchMap((action) => {
         return this.authService.login(action.loginData).pipe(
           map((user) => AuthActions.loginSuccess({ user: { ...user } })),
-          catchError((err) =>
-            of(AuthActions.loginFailure({ error: 'Wystąpił błąd.' })),
-          ),
+          catchError((err) => {
+            console.log(err);
+            return of(AuthActions.loginFailure({ error: 'Wystąpił błąd.' }));
+          }),
         );
       }),
     ),
@@ -33,13 +34,13 @@ export class AuthEffects {
             console.log('to nie tu');
             this.notifierService.notify(
               'success',
-              'Poprawnie utworzono konto użytkownika!',
+              'Poprawnie utworzono konto użytkownika!. Aktywuj konto przez mail',
             );
             return AuthActions.registerSuccess();
           }),
-          catchError((err) =>
-            of(AuthActions.loginFailure({ error: 'Wystąpił błąd.' })),
-          ),
+          catchError((err) => {
+            return of(AuthActions.loginFailure({ error: err }));
+          }),
         );
       }),
     ),
