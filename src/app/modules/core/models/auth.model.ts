@@ -38,3 +38,8 @@ export interface AuthResponse {
   message: string;
   code: string;
 }
+
+export interface LoggedInResponse
+  extends Omit<AuthenticatorResponse, 'message'> {
+  message: boolean;
+}
