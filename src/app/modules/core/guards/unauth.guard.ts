@@ -27,11 +27,16 @@ export class UnauthGuard implements CanActivate {
     | UrlTree {
     return this.authService.isLoggedIn().pipe(
       take(1),
-      map(() => {
-        this.router.navigate(['/']);
-        return false;
+      map((resp) => {
+        const isLoggedIn = resp.message;
+        if (isLoggedIn) {
+          this.router.navigate(['/']);
+          return false;
+        }
+
+        return true;
       }),
-      catchError(() => {
+      catchError((err) => {
         return of(true);
       }),
     );

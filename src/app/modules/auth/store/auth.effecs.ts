@@ -28,6 +28,22 @@ export class AuthEffects {
     ),
   );
 
+  autoLogin$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.autoLogin),
+        switchMap(() => {
+          return this.authService.autoLogin().pipe(
+            map((user) => {
+              return AuthActions.autoLoginSuccess({ user: { ...user } });
+            }),
+            catchError((err) => of(AuthActions.autoLoginFailure())),
+          );
+        }),
+      ),
+    // { dispatch: false }
+  );
+
   logout$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.logout),

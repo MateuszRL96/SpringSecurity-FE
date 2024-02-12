@@ -43,3 +43,7 @@ export interface LoggedInResponse
   extends Omit<AuthenticatorResponse, 'message'> {
   message: boolean;
 }
+
+export interface LoggedInResponse extends Omit<AuthResponse, 'message'> {
+  message: boolean;
+}
