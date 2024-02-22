@@ -24,6 +24,30 @@
             >Strona główna</a
           >
         </li>
+
+        <li class="nac-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            routerLink="/produkty"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Produkty
+          </a>
+          <ul class="dropdown-menu">
+            <ng-container *ngFor="let category of categories; let last = last">
+              <li>
+                <a class="dropdown-item" [routerLink]="">
+                  {{ category.name }}</a
+                >
+              </li>
+              <li *ngIf="!last">
+                <hr class="dropdown-divider" />
+              </li> </ng-container
+            >>
+          </ul>
+        </li>
+
         <ng-container *ngIf="user$ | async; else notUser">
           <li class="nav-item">
             <button mat-raised-button color="testowa7" (click)="logout()">
