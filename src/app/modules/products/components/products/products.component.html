@@ -17,6 +17,28 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
+
+    <div class="searched-params">
+      <mat-form-field>
+        <mat-label>Sortuj po</mat-label>
+        <mat-select [formControl]="sortControl">
+          <mat-option value="">-</mat-option>
+          <mat-option value="price">Cenie</mat-option>
+          <mat-option value="category">Kategorii</mat-option>
+          <mat-option value="name">Nazwie</mat-option>
+          <mat-option value="data">Dacie dodania</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Sortuj</mat-label>
+        <mat-select [formControl]="orderControl">
+          <mat-option value="">-</mat-option>
+          <mat-option value="asc">rosnąco</mat-option>
+          <mat-option value="desc">malejąco</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <div class="d-flex justify-content-end my-2">
       <button mat-raised-button color="primary" (click)="searchProducts()">
         Wyszukaj
