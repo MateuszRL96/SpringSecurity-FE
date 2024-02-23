@@ -5,10 +5,16 @@
       [product]="product"
     ></app-product>
     <mat-paginator
+      *ngIf="!errorMessage"
       [pageSizeOptions]="[5, 10, 15]"
-      [length]="products.length"
+      [length]="totalCount"
       showFirstLastButtons
     >
     </mat-paginator>
+    <app-alert
+      *ngIf="errorMessage"
+      [alertType]="'warning'"
+      [message]="errorMessage"
+    ></app-alert>
   </div>
 </section>

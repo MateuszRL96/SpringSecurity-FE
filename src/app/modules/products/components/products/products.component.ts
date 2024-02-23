@@ -1,132 +1,76 @@
 /* eslint-disable prettier/prettier */
-import { Component } from '@angular/core';
-import { Product } from 'src/app/modules/core/models/product.model';
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, map, switchMap } from 'rxjs';
+import { PrimitiveProduct } from 'src/app/modules/core/models/product.model';
+import { ProductsService } from 'src/app/modules/core/services/products.service';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductsComponent {
-  products: Product[] = [
-    {
-      uid: '1234',
-      name: 'Produkt1',
-      price: 200,
-      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
-      active: true,
-      category: 'Kategoria1',
-      shortId: 12345,
-    },
+export class ProductsComponent implements AfterViewInit, OnDestroy {
+  products: PrimitiveProduct[] = [];
+  totalCount = 0;
+  sub = new Subscription();
+  errorMessage: string | null = null;
 
-    {
-      uid: '1234',
-      name: 'Produkt1',
-      price: 200,
-      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
-      active: true,
-      category: 'Kategoria1',
-      shortId: 12345,
-    },
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-    {
-      uid: '1234',
-      name: 'Produkt1',
-      price: 200,
-      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
-      active: true,
-      category: 'Kategoria1',
-      shortId: 12345,
-    },
+  constructor(
+    private productService: ProductsService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
 
-    {
-      uid: '1234',
-      name: 'Produkt1',
-      price: 200,
-      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
-      active: true,
-      category: 'Kategoria1',
-      shortId: 12345,
-    },
+  ngAfterViewInit(): void {
+    // this.productService.getProducts().subscribe({
+    //   next: ({ products, totalCount }) => {
+    //     this.products = [...products];
+    //     this.totalCount = totalCount;
+    //   },
+    // });
 
-    {
-      uid: '1234',
-      name: 'Produkt1',
-      price: 200,
-      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
-      active: true,
-      category: 'Kategoria1',
-      shortId: 12345,
-    },
+    this.route.queryParamMap
+      .pipe(
+        switchMap((queryMap) => {
+          const pageIndex = queryMap.get('strona')
+            ? Number(queryMap.get('strona'))
+            : 1;
+          const itemsPerPage = queryMap.get('limit')
+            ? Number(queryMap.get('limit'))
+            : this.paginator.pageSize;
+          return this.productService.getProducts(pageIndex, itemsPerPage);
+        }),
+        map(({ products, totalCount }) => {
+          this.totalCount = totalCount;
+          this.products = [...products];
+        }),
+      )
+      .subscribe({
+        error: (err) => {
+          this.errorMessage = err;
+        },
+      });
 
-    {
-      uid: '1234',
-      name: 'Produkt1',
-      price: 200,
-      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
-      active: true,
-      category: 'Kategoria1',
-      shortId: 12345,
-    },
+    this.sub.add(
+      this.paginator.page.subscribe({
+        next: () => {
+          const pageIndex = this.paginator.pageIndex + 1;
+          const itemsPerPage = this.paginator.pageSize;
 
-    {
-      uid: '1234',
-      name: 'Produkt1',
-      price: 200,
-      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
-      active: true,
-      category: 'Kategoria1',
-      shortId: 12345,
-    },
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: { strona: pageIndex, limit: itemsPerPage },
+          });
+        },
+      }),
+    );
+  }
 
-    {
-      uid: '1234',
-      name: 'Produkt1',
-      price: 200,
-      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
-      active: true,
-      category: 'Kategoria1',
-      shortId: 12345,
-    },
-
-    {
-      uid: '1234',
-      name: 'Produkt1',
-      price: 200,
-      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
-      active: true,
-      category: 'Kategoria1',
-      shortId: 12345,
-    },
-
-    {
-      uid: '1234',
-      name: 'Produkt1',
-      price: 200,
-      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
-      active: true,
-      category: 'Kategoria1',
-      shortId: 12345,
-    },
-
-    {
-      uid: '1234',
-      name: 'Produkt1',
-      price: 200,
-      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
-      active: true,
-      category: 'Kategoria1',
-      shortId: 12345,
-    },
-
-    {
-      uid: '1234',
-      name: 'Produkt1',
-      price: 200,
-      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
-      active: true,
-      category: 'Kategoria1',
-      shortId: 12345,
-    },
-  ];
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
 }
