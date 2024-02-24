@@ -1,1 +1,47 @@
-<p>product-details works!</p>
+<div class="row">
+  <ng-container *ngIf="product">
+    <div class="col-md-6">
+      <app-images-carousel
+        [productName]="product.name"
+        [imageUrls]="product.imageUrls"
+      ></app-images-carousel>
+    </div>
+    <div
+      class="col-md-6 col-12 d-flex align-items-center justify-content-center"
+    >
+      <div class="text-center">
+        <p class="product-name">{{ product.name }}</p>
+        <p>{{ product.price | currency: 'zł' }}</p>
+        <p>Kup teraz!</p>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<div class="row">
+  <ng-container *ngIf="product">
+    <div class="col-md-12 mt-3">
+      <p class="product-desc">Opis produktu</p>
+      <div [innerHtml]="product.descHtml"></div>
+    </div>
+  </ng-container>
+</div>
+
+<div class="row">
+  <ng-container *ngIf="parameters">
+    <div class="col-md-12 mt-3">
+      <p class="product-desc">Specyfikacja</p>
+      <p class="text-center">Parametry</p>
+      <table class="table table-bordered">
+        <tbody>
+          <tr *ngFor="let parameter of parameters | keyvalue">
+            <td class="text-end table-cell">
+              <span class="product-parameter-key">{{ parameter.key }}</span>
+            </td>
+            <td class="text-start table-cell">{{ parameter.value }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</div>
