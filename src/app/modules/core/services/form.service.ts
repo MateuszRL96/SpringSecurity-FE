@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
+  AddCategoryForm,
   LoginForm,
   PasswdRecoveryForm,
   PasswordsForm,
@@ -12,6 +13,15 @@ import { equivalentValidator } from '../../shared/validators/equivalent.validato
   providedIn: 'root',
 })
 export class FormService {
+  initAddCategoryForm(): FormGroup<AddCategoryForm> {
+    return new FormGroup({
+      name: new FormControl('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+    });
+  }
+
   initPasswdRecoveryForm(): FormGroup<PasswdRecoveryForm> {
     return new FormGroup({
       email: new FormControl('', {
