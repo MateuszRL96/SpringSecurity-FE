@@ -7,20 +7,24 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { catchError, map, Observable, of, take } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, catchError, map, of, switchMap, take } from 'rxjs';
+import { AppState } from 'src/app/store/app.reducer';
 import { AuthService } from '../services/auth.service';
+import { selectAuthUser } from '../../auth/store/auth.selectors';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UnauthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private store: Store<AppState>,
   ) {}
   canActivate(
-    _route: ActivatedRouteSnapshot,
-    _state: RouterStateSnapshot,
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot,
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
@@ -28,17 +32,24 @@ export class UnauthGuard implements CanActivate {
     | UrlTree {
     return this.authService.isLoggedIn().pipe(
       take(1),
-      map((resp) => {
+      switchMap((resp) => {
         const isLoggedIn = resp.message;
         if (isLoggedIn) {
-          this.router.navigate(['/']);
-          return false;
+          return this.store.select(selectAuthUser).pipe(
+            map((user) => {
+              if (user && user.role === 'ADMIN') {
+                return true;
+              }
+
+              return false;
+            }),
+          );
         }
 
-        return true;
+        return of(false);
       }),
       catchError((err) => {
-        return of(true);
+        return of(false);
       }),
     );
   }
