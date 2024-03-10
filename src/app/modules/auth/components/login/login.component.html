@@ -3,7 +3,7 @@
     <div class="form-input">
       <mat-form-field appearance="fill">
         <mat-label>Login</mat-label>
-        <input matInput [formControl]="controls.login" />
+        <input class="input-field" matInput [formControl]="controls.login" />
         <mat-error *ngIf="controls.login.invalid">{{
           getErrorMessage(controls.login)
         }}</mat-error>
@@ -12,7 +12,12 @@
     <div class="form-input">
       <mat-form-field appearance="fill">
         <mat-label>Hasło</mat-label>
-        <input type="password" matInput [formControl]="controls.password" />
+        <input
+          class="input-field"
+          type="password"
+          matInput
+          [formControl]="controls.password"
+        />
         <mat-error *ngIf="controls.password.invalid">{{
           getErrorMessage(controls.password)
         }}</mat-error>

@@ -1,15 +1,18 @@
 .testowa5 {
   background-color: rgb(206, 10, 157);
-  padding: 1%;
+  padding: 2%;
   font-size: large;
   font-weight: bold;
 }
 
 .testowa7 {
-  background-color: rgb(238, 143, 214);
-  color: white;
+  background: #fff;
+  //color: white;
   font-size: large;
   font-weight: bold;
+  display: block;
+  border: 2px solid transparent;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .dropdown:hover > .dropdown-menu {
   display: block;
@@ -17,4 +20,10 @@
 
 .dropdown-item {
   cursor: pointer;
+}
+
+.navbar {
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
 }
