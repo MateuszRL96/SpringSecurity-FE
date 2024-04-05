@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
