@@ -1,6 +1,10 @@
 {
   "/api": {
+<<<<<<< HEAD
     "target": "http://192.168.0.148:8080",
+=======
+    "target": "http://host.docker.internal:8080",
+>>>>>>> 5258d7e95a66e578de71b738f0a942a21a3ec4ae
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",
