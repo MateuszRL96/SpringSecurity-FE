@@ -2,9 +2,19 @@
   display: grid;
   gap: 0.8rem;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  width: 70%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .searched-params {
   display: flex;
   gap: 0.8rem;
+}
+.autocomplete-search {
+  width: 50%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }

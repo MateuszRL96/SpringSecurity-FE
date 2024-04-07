@@ -1,5 +1,8 @@
 .card {
   cursor: pointer;
+  min-height: 100px;
+  height: 200px;
+  border-style: double;
 }
 
 .card-title {
