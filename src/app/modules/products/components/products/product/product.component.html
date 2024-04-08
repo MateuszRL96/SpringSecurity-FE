@@ -1,8 +1,13 @@
 <div class="card" [routerLink]="getProductDetailsUrl()">
-  <img [src]="product.imageUrl" [alt]="product.name" class="card-img-top" />
+  <img
+    class="zdjecie"
+    [src]="product.imageUrl"
+    [alt]="product.name"
+    class="card-img-top"
+  />
   <div class="card-body">
     <h5 class="card-title">{{ product.name }}</h5>
-    <p>{{ product.price | currency: 'zł' }}</p>
+    <p>{{ product.price | currency: '☆' }}</p>
     <p class="card-text">{{ product.mainDesc }}</p>
   </div>
 </div>

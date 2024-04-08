@@ -1,10 +1,15 @@
 .card {
   cursor: pointer;
   min-height: 100px;
-  height: 200px;
+  height: 350px;
   border-style: double;
 }
 
 .card-title {
   font-size: 1.1rem;
+}
+
+.card-img-top {
+  height: 50%;
+  width: 100%;
 }
