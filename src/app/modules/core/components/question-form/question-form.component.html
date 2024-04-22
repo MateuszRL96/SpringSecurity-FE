@@ -1,0 +1,9 @@
+<div *ngFor="let question of questions">
+  <mat-form-field appearance="fill">
+    <mat-label>{{ question.questionText }}</mat-label>
+    <input matInput [(ngModel)]="question.answer" />
+  </mat-form-field>
+</div>
+<button mat-raised-button color="primary" (click)="submitResponses()">
+  Submit
+</button>
