@@ -22,6 +22,13 @@ const routes: Routes = [
         (m) => m.AdministrationModule,
       ),
   },
+  { path: 'questions',
+    loadChildren: () =>
+    import('./modules/core/questions/questions.module').then(
+      (m) => m.QuestionsModule,
+    ),
+    //component: QuestionsComponent 
+  } 
 ];
 
 @NgModule({
