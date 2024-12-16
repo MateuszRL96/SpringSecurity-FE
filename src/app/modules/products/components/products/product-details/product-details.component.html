@@ -1,47 +1,142 @@
-<div class="row">
-  <ng-container *ngIf="product">
-    <div class="col-md-6">
-      <app-images-carousel
-        [productName]="product.name"
-        [imageUrls]="product.imageUrls"
-      ></app-images-carousel>
-    </div>
-    <div
-      class="col-md-6 col-12 d-flex align-items-center justify-content-center"
-    >
-      <div class="text-center">
-        <p class="product-name">{{ product.name }}</p>
-        <p>{{ product.price | currency: 'zł' }}</p>
-        <p>Kup teraz!</p>
+<div class="container mt-4">
+  <!-- Produkt -->
+  <div class="row position-relative">
+    <ng-container *ngIf="product">
+      <!-- Obrazki -->
+      <div class="col-md-6 col-12 mb-4">
+        <div class="image-gallery">
+          <div class="image-container" *ngFor="let imageUrl of product.imageUrls">
+            <img
+              class="zdjecie img-fluid"
+              [src]="getProcessedImageUrl(imageUrl)"
+              [alt]="product.name"
+            />
+          </div>
+        </div>
       </div>
-    </div>
-  </ng-container>
-</div>
+      <!-- Informacje o produkcie -->
+      <div
+        class="col-md-6 col-12 d-flex align-items-center justify-content-center mb-4"
+      >
+        <div class="text-center">
+          <h3 class="product-name mb-3">{{ product.name }}</h3>
+          <p class="product-price text-primary fs-4 fw-bold">
+            {{ product.price | currency: 'zł' }}
+          </p>
+          <button mat-raised-button color="primary" class="btn btn-primary">
+            Dodaj!
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
 
-<div class="row">
-  <ng-container *ngIf="product">
-    <div class="col-md-12 mt-3">
-      <p class="product-desc">Opis produktu</p>
-      <div [innerHtml]="product.descHtml"></div>
-    </div>
-  </ng-container>
-</div>
+  <!-- Opis produktu -->
+  <div class="row">
+    <ng-container *ngIf="product">
+      <div class="col-12 mt-3">
+        <h4 class="product-desc-title">Opis produktu</h4>
+        <div [innerHtml]="product.descHtml" class="product-desc-text"></div>
+      </div>
+    </ng-container>
+  </div>
 
-<div class="row">
-  <ng-container *ngIf="parameters">
-    <div class="col-md-12 mt-3">
-      <p class="product-desc">Specyfikacja</p>
-      <p class="text-center">Parametry</p>
-      <table class="table table-bordered">
-        <tbody>
+  <!-- Specyfikacja produktu -->
+  <div class="row">
+    <ng-container *ngIf="parameters">
+      <div class="col-12 mt-4">
+        <h4 class="product-desc-title">Specyfikacja</h4>
+        <p class="text-center mb-3">Parametry</p>
+        <table class="table table-bordered table-hover">
+          <tbody>
           <tr *ngFor="let parameter of parameters | keyvalue">
-            <td class="text-end table-cell">
-              <span class="product-parameter-key">{{ parameter.key }}</span>
+            <td class="text-end table-cell bg-light fw-bold">
+              {{ parameter.key }}
             </td>
             <td class="text-start table-cell">{{ parameter.value }}</td>
           </tr>
-        </tbody>
-      </table>
-    </div>
-  </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </ng-container>
+  </div>
 </div>
+
+<style>
+  /* Globalne style */
+  .container {
+    max-width: 1200px;
+  }
+
+  /* Kontener obrazków */
+  .image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .image-container {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .image-container img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Nagłówki */
+  .product-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+
+  .product-price {
+    font-size: 1.5rem;
+  }
+
+  /* Opis produktu */
+  .product-desc-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  .product-desc-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  /* Tabela parametrów */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    background-color: #fff;
+  }
+
+  .table-cell {
+    padding: 0.75rem;
+    vertical-align: top;
+    border: 1px solid #dee2e6;
+  }
+
+  .table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+</style>

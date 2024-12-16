@@ -1,7 +1,7 @@
 <div class="card" [routerLink]="getProductDetailsUrl()">
   <img
     class="zdjecie"
-    [src]="product.imageUrl"
+    [src]="getProcessedImageUrl()"
     [alt]="product.name"
     class="card-img-top"
   />

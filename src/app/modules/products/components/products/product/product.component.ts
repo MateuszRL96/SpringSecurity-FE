@@ -16,4 +16,9 @@ export class ProductComponent {
       '',
     )}`;
   }
+
+  getProcessedImageUrl(): string {
+    const url = new URL(this.product.imageUrl);
+    return url.searchParams.get('uuid') || '';
+  }
 }

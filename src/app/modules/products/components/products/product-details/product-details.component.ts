@@ -38,4 +38,9 @@ export class ProductDetailsComponent implements OnInit {
         },
       });
   }
+
+  getProcessedImageUrl(imageUrl: string): string {
+    const url = new URL(imageUrl);
+    return url.searchParams.get('uuid') || '';
+  }
 }

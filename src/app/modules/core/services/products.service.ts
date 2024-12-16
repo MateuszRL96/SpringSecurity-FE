@@ -29,7 +29,7 @@ export class ProductsService {
 
   getProducts(
     pageIndex = 1,
-    itemsPerPage = 5,
+    itemsPerPage = 10,
     name: string | null = null,
     sortElement: string | null = null,
     order: string | null = null,
